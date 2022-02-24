@@ -1,0 +1,38 @@
+{
+  "name": "employess_backend",
+  "version": "1.0.0",
+  "description": "employees backend",
+  "main": "index.js",
+  "scripts": {
+    "start": "ts-node src/server.ts",
+    "dev": "nodemon src/app.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/jmcastle009/employess_backend.git"
+  },
+  "keywords": [
+    "employees",
+    "backend"
+  ],
+  "author": "Jean Marco Castillo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/jmcastle009/employess_backend/issues"
+  },
+  "homepage": "https://gitlab.com/jmcastle009/employess_backend#readme",
+  "dependencies": {
+    "express": "^4.17.3",
+    "joi": "^17.6.0",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.13",
+    "@types/joi": "^17.2.3",
+    "@types/node": "^17.0.20",
+    "@types/uuid": "^8.3.4",
+    "nodemon": "^2.0.15",
+    "ts-node": "^10.5.0",
+    "typescript": "^4.5.5"
+  }
+}
