@@ -12,6 +12,8 @@ export class EmployeesController {
     getOne(req: Request, res: Response) {
         const { id } = req.params
         const employee = employeesUsecase.getOne(id)
+        if(!employee)
+            return res.status(400).json({msg: "ID not found"})
         res.status(200).json(employee)
     }
 
@@ -22,11 +24,10 @@ export class EmployeesController {
 
     async createEmployee(req:Request, res:Response){
         const employee = {...req.body}
-        const newEmployee = employeesUsecase.create(employee)
+        const newEmployee = await employeesUsecase.create(employee)
         if(!newEmployee)
             res.status(500).json({msg: "Error creating" })
         res.status(201).json(newEmployee)
-
     }
 
 }
