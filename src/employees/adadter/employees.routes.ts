@@ -16,5 +16,13 @@ router.post("", [
     mergeParameter(),
     validatorJoi(employeesSchema.CREATE)
 ], employeesController.createEmployee)
+router.put("/:id", [
+    mergeParameter(),
+    validatorJoi(employeesSchema.UPDATE)
+], employeesController.updateEmployee)
+router.delete("/:id",
+    mergeParameter(),
+    validatorJoi(employeesSchema.DELETE),
+    employeesController.deleteEmployee)
 
 export { router }

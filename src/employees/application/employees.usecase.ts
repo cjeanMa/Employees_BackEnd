@@ -1,23 +1,66 @@
+import moment from "moment";
+import { v4 as uuidv4 } from 'uuid'
 import { Employees } from "../domain/employees";
 import { IEmployees } from "./employees.interface";
-import {v4 as uuidv4} from 'uuid'
+import { generateEmail } from "./employees.service";
+import pseudoData from "../../constants/constants";
 
-export class EmployeesUseCase{
+export class EmployeesUseCase {
 
-    constructor(private operationEmployees:IEmployees){}
+    constructor(private operationEmployees: IEmployees) { }
 
-    getOne(id:string):Employees{
-        return this.operationEmployees.getOne(id)
+    async getOne(id: string): Promise<Employees> {
+        return await this.operationEmployees.getOne(id)
     }
 
-    getAll():Employees[]{
+    getAll(): Employees[] {
         return this.operationEmployees.getAll()
     }
 
-    async create(emp:Partial<Employees>):Promise<Employees>{
+    async create(emp: Partial<Employees>): Promise<Employees> {
         const id = uuidv4()
-        const newEmployee:Employees={id, ...emp} as Employees
+        const estado = "activo"
+        const fechaCreacion = moment().format("DD-MM-YYYY hh:mm:ss")
+        const lEmails = await this.operationEmployees.listEmails();
+        const correo = await generateEmail(emp.primerNombre, emp.primerApellido, emp.pais, lEmails)
+        const newEmployee: Employees = { id, ...emp, correo, estado, fechaCreacion } as Employees
         return this.operationEmployees.create(newEmployee)
+    }
+
+    async update(emp: Partial<Employees>): Promise<Employees> {
+        const dEmployee = await this.getOne(emp.id);
+        console.log(dEmployee)
+        const fechaActualizacion = moment().format("DD-MM-YYYY hh:mm:ss")
+        let newEmployee: Employees = null
+        if (dEmployee.primerNombre != emp.primerNombre || dEmployee.primerApellido != emp.primerApellido) {
+            const lEmails = await this.operationEmployees.listEmails();
+            const correo = await generateEmail(emp.primerNombre, emp.primerApellido, emp.pais, lEmails)
+            newEmployee = Object.assign(dEmployee,{ ...emp, correo, fechaActualizacion }) as Employees
+        }
+        else {
+            newEmployee = Object.assign(dEmployee,{ ...emp, fechaActualizacion }) as Employees
+        }
+        return this.operationEmployees.update(newEmployee)
+    }
+
+    async findByIdAndType(id: string, type: string): Promise<Employees> {
+        try {
+            const employee = await this.operationEmployees.findByIdAndType(id, type)
+            return employee
+        } catch (error) {
+            console.log("Error findingIds")
+            return error
+        }
+    }
+
+    async findByEmail(email: string): Promise<Employees> {
+        const employee = await this.operationEmployees.findByEmail(email)
+        return employee
+    }
+
+    async delete(id:string):Promise<Employees>{
+        const employee = await this.operationEmployees.delete(id)
+        return employee
     }
 
 }

@@ -8,4 +8,9 @@ export interface Employees{
     tIdentificacion:string
     nIdentificacion:string
     correo:string
+    fechaIngreso:Date
+    area:string
+    estado:string
+    fechaCreacion:string
+    fechaActualizacion?:string
 }

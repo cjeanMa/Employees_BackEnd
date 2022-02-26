@@ -1,10 +1,24 @@
 const pseudoData={
     paises:["Colombia", "Estados Unidos"],
-    identificaciones:["Cédula de Ciudadanía", "Cédula de Extranjería", "Pasaporte", "Permiso Especial"],
+    identificaciones:[
+        "Cédula de Ciudadanía",
+        "Cédula de Extranjería",
+        "Pasaporte",
+        "Permiso Especial"
+    ],
     dominio:{
-        co: "cidenet.com.co",
-        us: "cidenet.com.us"
-        }
+        'Colombia': "cidenet.com.co",
+        'Estados Unidos': "cidenet.com.us"
+        },
+    area:[
+        "Administración",
+        "Financiera",
+        "Compras",
+        "Infraestructura",
+        "Operación",
+        "Talento Humano",
+        "Servicios Varios"
+    ]
 }
 
 export default pseudoData
