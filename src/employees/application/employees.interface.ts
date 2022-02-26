@@ -2,7 +2,7 @@ import { Employees } from "../domain/employees";
 
 export interface IEmployees{
     getOne(id:string):Promise<Employees>
-    getAll():Employees[]
+    getAll():Promise<Employees[]>
     create(emp:Employees):Promise<Employees>
     update(emp:Employees):Promise<Employees>
     findByIdAndType(id:string, type:string):Promise<Employees>

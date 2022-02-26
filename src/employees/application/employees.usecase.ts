@@ -13,8 +13,8 @@ export class EmployeesUseCase {
         return await this.operationEmployees.getOne(id)
     }
 
-    getAll(): Employees[] {
-        return this.operationEmployees.getAll()
+    async getAll(): Promise<Employees[]> {
+        return await this.operationEmployees.getAll()
     }
 
     async create(emp: Partial<Employees>): Promise<Employees> {
@@ -28,19 +28,32 @@ export class EmployeesUseCase {
     }
 
     async update(emp: Partial<Employees>): Promise<Employees> {
-        const dEmployee = await this.getOne(emp.id);
-        console.log(dEmployee)
-        const fechaActualizacion = moment().format("DD-MM-YYYY hh:mm:ss")
-        let newEmployee: Employees = null
-        if (dEmployee.primerNombre != emp.primerNombre || dEmployee.primerApellido != emp.primerApellido) {
-            const lEmails = await this.operationEmployees.listEmails();
-            const correo = await generateEmail(emp.primerNombre, emp.primerApellido, emp.pais, lEmails)
-            newEmployee = Object.assign(dEmployee,{ ...emp, correo, fechaActualizacion }) as Employees
+        try {
+            const dEmployee = await this.getOne(emp.id);
+            const fechaActualizacion = moment().format("DD-MM-YYYY hh:mm:ss")
+            let newEmployee: Employees = null
+            if (dEmployee.primerNombre != emp.primerNombre || dEmployee.primerApellido != emp.primerApellido) {
+                const firstValueCorreo = !emp.primerNombre?
+                                            dEmployee.primerNombre:
+                                            emp.primerNombre
+                const secondValueCorreo = !emp.primerApellido?
+                                            dEmployee.primerApellido:
+                                            emp.primerApellido
+                const valuePais = !emp.pais?
+                                dEmployee.pais:
+                                emp.pais
+                const lEmails = await this.operationEmployees.listEmails();
+                const correo = await generateEmail(firstValueCorreo, secondValueCorreo, valuePais, lEmails)
+                newEmployee = Object.assign(dEmployee,{ ...emp, correo, fechaActualizacion }) as Employees
+            }
+            else {
+                newEmployee = Object.assign(dEmployee,{ ...emp, fechaActualizacion }) as Employees
+            }
+            return this.operationEmployees.update(newEmployee)  
+        } catch (error) {
+            console.log("Error updating")
+            return null
         }
-        else {
-            newEmployee = Object.assign(dEmployee,{ ...emp, fechaActualizacion }) as Employees
-        }
-        return this.operationEmployees.update(newEmployee)
     }
 
     async findByIdAndType(id: string, type: string): Promise<Employees> {
@@ -59,8 +72,12 @@ export class EmployeesUseCase {
     }
 
     async delete(id:string):Promise<Employees>{
-        const employee = await this.operationEmployees.delete(id)
-        return employee
+        try {
+            const employee = await this.operationEmployees.delete(id)
+            return employee    
+        } catch (error) {
+            return null
+        }
     }
 
 }

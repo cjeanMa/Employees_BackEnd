@@ -19,8 +19,12 @@ export class EmployeesOperation implements IEmployees{
         }
     }
 
-    getAll():Employees[]{
-        return this.dbConnection.getEmployees()
+    async getAll():Promise<Employees[]>{
+        try {
+            return await this.dbConnection.getEmployees()
+        } catch (error) {
+            return error
+        }
     }
 
     async create(employee:Employees):Promise<Employees>{

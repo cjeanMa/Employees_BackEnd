@@ -1,4 +1,5 @@
 import fs from 'fs'
+import { resolve } from 'path/posix';
 import { IDB } from './db.interface';
 import { Employees } from './employees/domain/employees';
 import { readData, writeData } from './helpers/handleArchive';
@@ -24,8 +25,12 @@ export class DB implements IDB {
         })
     }
 
-    getEmployees(): Employees[] {
-        return this.dataEmployees
+    getEmployees(): Promise<Employees[]> {
+        return new Promise((resolve, reject)=>{
+            if(this.dataEmployees.length === 0)
+                reject(null)
+            resolve(this.dataEmployees)
+        })
     }
 
     findByIdAndType(id: string, type: string): Promise<Employees> {
@@ -64,30 +69,29 @@ export class DB implements IDB {
     }
 
     async createEmployee(employee: Employees): Promise<Employees> {
-        this.dataEmployees.push(employee)
-        try {
+        return new Promise((resolve, reject) => {
+            this.dataEmployees.push(employee)
             writeData(this.dataEmployees)
-            return employee
-        } catch (error) {
-            throw error
-        }
+            resolve(employee)
+        })
     }
 
     async updateEmployee(employee: Employees): Promise<Employees> {
-        let index
-        for (let i = 0; i < this.dataEmployees.length; i++) {
-            if (this.dataEmployees[i].id === employee.id) {
-                index = i
-                break
+        return new Promise((resolve, reject) => {
+            let index
+            for (let i = 0; i < this.dataEmployees.length; i++) {
+                if (this.dataEmployees[i].id === employee.id) {
+                    index = i
+                    break
+                }
             }
-        }
-        this.dataEmployees[index] = employee
-        try {
+            if (!this.dataEmployees[index]) {
+                reject(null)
+            }
+            this.dataEmployees[index] = employee
             writeData(this.dataEmployees)
-            return employee
-        } catch (error) {
-            throw error
-        }
+            resolve(employee)
+        })
     }
 
     async deleteEmployee(id: string): Promise<Employees> {

@@ -19,15 +19,15 @@ export const employeesSchema = {
     }),
     UPDATE: Joi.object({
         id: Joi.string().required(),
-        primerApellido: Joi.string().pattern(/^[A-Z|\s]{3,20}$/).required(),
-        segundoApellido: Joi.string().pattern(/^[A-Z|\s]{3,20}$/).required(),
-        primerNombre: Joi.string().pattern(/^[A-Z]{3,20}$/).required(),
+        primerApellido: Joi.string().pattern(/^[A-Z|\s]{3,20}$/),
+        segundoApellido: Joi.string().pattern(/^[A-Z|\s]{3,20}$/),
+        primerNombre: Joi.string().pattern(/^[A-Z]{3,20}$/),
         otrosNombres:Joi.string().pattern(/^[A-Z|\s]{3,50}$/),
-        pais: Joi.string().custom(validateCountry, "Country").required(),
-        tIdentificacion: Joi.string().custom(validateID, "Type Identification validation").required(),
-        nIdentificacion:  Joi.string().pattern(/[a-zA-Z0-9|-]{8,20}/).required(),
-        area: Joi.string().custom(validateArea, "Validation Area").required(),
-        fechaIngreso: Joi.date().custom(validateFechaIngreso, "Validation FechaIngreso").required()
+        pais: Joi.string().custom(validateCountry, "Country"),
+        tIdentificacion: Joi.string().custom(validateID, "Type Identification validation"),
+        nIdentificacion:  Joi.string().pattern(/[a-zA-Z0-9|-]{8,20}/),
+        area: Joi.string().custom(validateArea, "Validation Area"),
+        fechaIngreso: Joi.date().custom(validateFechaIngreso, "Validation FechaIngreso")
     }),
     DELETE: Joi.object({
         id: Joi.string().required()

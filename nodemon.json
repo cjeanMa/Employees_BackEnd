@@ -4,6 +4,6 @@
     "execMap":{
         "ts": "ts-node"
     },
-    "ignore":["node_modules","dist",".git", "src/database"],
+    "ignore":["node_modules","dist",".git", "src/database", "src/logs/**.log"],
     "verbose":true
 }

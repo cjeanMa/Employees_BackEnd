@@ -4,7 +4,7 @@ import { IEmployees } from "./employees.interface";
 import { EmployeesUseCase } from "./employees.usecase";
 
 export const normalizarText = (text:string) =>{
-    return text.replace(" ","")
+    return text.split(" ").join("")
 }
 /**
  * Function to generate a new email
