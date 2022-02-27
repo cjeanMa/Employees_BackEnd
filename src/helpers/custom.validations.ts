@@ -1,5 +1,8 @@
 import { date } from "joi"
 import pseudoData from "../constants/constants"
+/**
+ * Custom functions to work with Joi validator
+ */
 
 export const validateCountry = (value:string, helpers:any) =>{
     if(!pseudoData.paises.includes(value))

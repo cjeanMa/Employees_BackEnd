@@ -1,6 +1,7 @@
 import { Application } from 'express';
 import http from 'http'
 import app from '../app'
+import logger from '../helpers/logger';
 import { IServer } from "./server.interface";
 
 export class ServerBoostrap implements IServer{
@@ -10,18 +11,18 @@ export class ServerBoostrap implements IServer{
     constructor(private app: Application) { 
         //super();
     }
-
+    
     initialize(): Promise<any> {
         return new Promise((resolve,reject)=>{
             const server = http.createServer(app);
             server
             .listen(this.port)
             .on("listening", ()=>{
-                console.log(`app running in port ${this.port}`)
+                logger.info(`Server is running in port ${this.port}`)
                 resolve(true)
             })
             .on('error',err=>{
-                console.log("Error initializing app")
+                logger.error(`Error starting the App \n ${JSON.stringify(err, null, '\t')}`)
                 reject(err)
             })
         })

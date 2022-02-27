@@ -1,3 +1,6 @@
+/**
+ * Pseudo data necessary to Employees Entity
+ */
 const pseudoData={
     paises:["Colombia", "Estados Unidos"],
     identificaciones:[
