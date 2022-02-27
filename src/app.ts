@@ -1,8 +1,13 @@
 import express, { Application } from 'express'
 import {router as employeeRouter} from './employees/adadter/employees.routes'
 import { ErrorHandler } from './helpers/error.handler'
+import cors from 'cors'
 
 const app:Application = express()
+
+app.use(cors({
+    origin: "*"
+}))
 
 app.use(express.json())
 

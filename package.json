@@ -6,7 +6,8 @@
   "scripts": {
     "start": "ts-node src/server.ts",
     "dev": "nodemon src/server.ts",
-    "test": "jest"
+    "test": "jest",
+    "tsc:build": "tsc"
   },
   "repository": {
     "type": "git",
@@ -23,6 +24,7 @@
   },
   "homepage": "https://gitlab.com/jmcastle009/employess_backend#readme",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.17.3",
     "joi": "^17.6.0",
     "moment": "^2.29.1",
@@ -30,6 +32,7 @@
     "winston": "^3.6.0"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.12",
     "@types/express": "^4.17.13",
     "@types/jest": "^27.4.1",
     "@types/joi": "^17.2.3",
