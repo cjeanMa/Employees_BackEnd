@@ -12,7 +12,7 @@ To clone this repository, is necessary use the following commands:
 
 ```
 cd existing_dir
-git clone https://gitlab.com/jmcastle009/employees_frontend.git
+git clone https://gitlab.com/jmcastle009/employess_backend.git
 ```
 Then access to the directory created for the clone command.
 To download all modules necessaries,  use the following commands 
