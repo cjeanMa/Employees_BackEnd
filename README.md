@@ -8,14 +8,14 @@ this repository contains backend of a project to manage employees
 
 ## Installation
 
-To clone this repository, is necesary use the following commands:
+To clone this repository, is necessary use the following commands:
 
 ```
 cd existing_dir
 git clone https://gitlab.com/jmcastle009/employees_frontend.git
 ```
 Then access to the directory created for the clone command.
-To download all modules necesaries,  use the following commands 
+To download all modules necessaries,  use the following commands 
 
 ```
 npm install
