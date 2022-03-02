@@ -2,6 +2,15 @@
 
 this repository contains backend of a project to manage employees
 
+## Technologies  and Tools
+
+- Express 
+- Typescript
+- Winston
+- Joi
+- Moment
+- Uuid
+
 ## Requirements
 
 - Node 16 or higher
