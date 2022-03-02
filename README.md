@@ -21,7 +21,7 @@ To clone this repository, is necessary use the following commands:
 
 ```
 cd existing_dir
-git clone https://gitlab.com/jmcastle009/employess_backend.git
+git clone https://github.com/cjeanMa/Employees_BackEnd
 ```
 Then access to the directory created for the clone command.
 To download all modules necessaries,  use the following commands 
